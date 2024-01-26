@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.title-bar {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+.weather-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+.day {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
