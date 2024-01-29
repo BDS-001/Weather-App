@@ -1,7 +1,11 @@
 async function getweatherData(apiKey, location) {
     const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`, {mode: 'cors'})
     const weatherData = await response.json()
-    
+
+    if (weatherData.error) {
+        throw new Error(`HTTP error! status: ${weatherData.error.message}`);
+    }
+
     console.log(weatherData)
     console.log(weatherData['location']['name'])
     console.log(weatherData['forecast']['forecastday'][0])
