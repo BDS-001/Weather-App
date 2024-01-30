@@ -45,6 +45,7 @@ async function displayWeatherData(data) {
             day.append(createElementHelper('div', forcastData[index].day.avgtemp_c))
             day.append(createElementHelper('div', forcastData[index].day.avghumidity))
             day.append(createElementHelper('div', forcastData[index].day.condition.text))
+            day.style.display = 'block';
         }
     }
 }
@@ -54,5 +55,4 @@ document.getElementById('weatherForm').addEventListener('submit', async function
     const apiKey = document.getElementById('apiKeyInput').value;
     const data = await getweatherData(apiKey, location)
     displayWeatherData(data)
-
 });
