@@ -34,11 +34,25 @@ function createElementHelper(element, content) {
     return htmlElement
 }
 
-
+async function displayWeatherData(data) {
+    console.log(data, 'data')
+    if (data && data['forecast'] && data['forecast']['forecastday']) {
+        const forcastsDivs = document.querySelectorAll('.day')
+        const forcastData = data['forecast']['forecastday']
+        for (let index = 0; index < forcastData.length; index++) {
+            const day = forcastsDivs[index]
+            day.append(createElementHelper('div', forcastData[index].date))
+            day.append(createElementHelper('div', forcastData[index].day.avgtemp_c))
+            day.append(createElementHelper('div', forcastData[index].day.avghumidity))
+            day.append(createElementHelper('div', forcastData[index].day.condition.text))
+        }
+    }
+}
 document.getElementById('weatherForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     const location = document.getElementById('locationInput').value;
     const apiKey = document.getElementById('apiKeyInput').value;
     const data = await getweatherData(apiKey, location)
+    displayWeatherData(data)
 
 });
