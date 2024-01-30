@@ -1,21 +1,44 @@
-async function getweatherData(apiKey, location) {
-    const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`, {mode: 'cors'})
-    const weatherData = await response.json()
+const errorMessageDiv = document.getElementById('errorMessage');
 
-    if (weatherData.error) {
-        throw new Error(`HTTP error! status: ${weatherData.error.message}`);
-    }
-
-    console.log(weatherData)
-    console.log(weatherData['location']['name'])
-    console.log(weatherData['forecast']['forecastday'][0])
-    console.log(weatherData['forecast']['forecastday'][1])
-    console.log(weatherData['forecast']['forecastday'][2])
+function errorHandler(error) {
+    console.log(error)
+    errorMessageDiv.textContent = `Error: ${error.message}`;
+    errorMessageDiv.style.display = 'block';
 }
 
-document.getElementById('weatherForm').addEventListener('submit', function(event) {
+async function getweatherData(apiKey, location) {
+    try {
+    const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`, {mode: 'cors'})
+    const weatherData = await response.json()
+    console.log(weatherData)
+
+    if (weatherData.error) {
+        errorHandler(weatherData.error)
+    } else {
+        errorMessageDiv.style.display = 'none';
+        console.log(weatherData['location']['name'])
+        console.log(weatherData['forecast']['forecastday'][0])
+        console.log(weatherData['forecast']['forecastday'][1])
+        console.log(weatherData['forecast']['forecastday'][2])
+        return weatherData
+    }
+
+    } catch (error) {
+        errorHandler(error)
+    }
+}
+
+function createElementHelper(element, content) {
+    const htmlElement = document.createElement(element)
+    htmlElement.textContent = content
+    return htmlElement
+}
+
+
+document.getElementById('weatherForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     const location = document.getElementById('locationInput').value;
     const apiKey = document.getElementById('apiKeyInput').value;
-    getweatherData(apiKey, location)
+    const data = await getweatherData(apiKey, location)
+
 });
