@@ -15,20 +15,18 @@
         <form id="weatherForm">
             <input type="text" id="locationInput" placeholder="Enter location" required>
             <input type="password" id="apiKeyInput" placeholder="Enter API Key" required>
+            <select id="forecastDays">
+                <option value="1">1 Day</option>
+                <option value="2">2 Days</option>
+                <option value="3" selected>3 Days</option>
+            </select>
+        
             <input type="submit" value="Get Weather">
         </form>
+        
     </div>
     <div id="errorMessage" class="error-message"></div>
     <div class="weather-container">
-        <div class="day">
-            <h2>today</h2>
-        </div>
-        <div class="day">
-            <h2>tomorrow</h2>
-        </div>
-        <div class="day">
-            <h2>day after tomorrow</h2>
-        </div>
     </div>
 </body>
 </html>
