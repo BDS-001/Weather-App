@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212; 
+    background-color: #2b2b2b; 
     color: #FFFFFF;
 }
 .title-bar {
@@ -16,12 +16,15 @@ body {
 }
 .day {
     border: 1px solid #333333;
-    background-color: #242424;
+    background-color: #323232;
     padding: 10px;
     text-align: center;
     color: #DDDDDD;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
-    display: none;
+    /* display: none; */
+
+    min-width: 300px;
 }
 .form-container {
     text-align: center;
