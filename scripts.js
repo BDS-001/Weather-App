@@ -28,9 +28,14 @@ async function getweatherData(apiKey, location) {
     }
 }
 
-function createElementHelper(element, content) {
+function createElementHelper(element, innerContent, options = false) {
     const htmlElement = document.createElement(element)
-    htmlElement.textContent = content
+    if (innerContent) htmlElement.textContent = innerContent
+    if (options) {
+        options.forEach(option => {
+            htmlElement.setAttribute(option.attribute, option.value)
+        });
+    }
     return htmlElement
 }
 
@@ -45,6 +50,7 @@ async function displayWeatherData(data) {
             day.append(createElementHelper('div', forcastData[index].day.avgtemp_c))
             day.append(createElementHelper('div', forcastData[index].day.avghumidity))
             day.append(createElementHelper('div', forcastData[index].day.condition.text))
+            day.append(createElementHelper('img', false, [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))
             day.style.display = 'block';
         }
     }
