@@ -51,10 +51,13 @@ async function displayWeatherData(data) {
 
             day.append(createElementHelper('h1', daysOfWeek[dayOfWeekNumber]))
             day.append(createElementHelper('div', forcastData[index].date))
-            day.append(createElementHelper('div', forcastData[index].day.avgtemp_c))
-            day.append(createElementHelper('div', forcastData[index].day.avghumidity))
-            day.append(createElementHelper('div', forcastData[index].day.condition.text))
-            day.append(createElementHelper('img', false, [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))
+            day.append(createElementHelper('h1', forcastData[index].day.avgtemp_c + "\u00B0C"))
+            day.append(createElementHelper('div', 'Humidity: ' + forcastData[index].day.avghumidity))
+
+            const conditionContainer = createElementHelper('div', false)
+            conditionContainer.append(createElementHelper('img', false, [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))
+            conditionContainer.append(createElementHelper('div', forcastData[index].day.condition.text, [{attribute: 'class', value: 'condition-container'}]))
+            day.append(conditionContainer)
 
             weatherContainer.append(day)
         }
