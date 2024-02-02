@@ -25,7 +25,7 @@ async function getweatherData(apiKey, location, forcastDays) {
     }
 }
 
-function createElementHelper(element, innerContent, options = false) {
+function createElementHelper(element, innerContent, className='', options = false) {
     const htmlElement = document.createElement(element)
     if (innerContent) htmlElement.textContent = innerContent
     if (options) {
@@ -33,6 +33,7 @@ function createElementHelper(element, innerContent, options = false) {
             htmlElement.setAttribute(option.attribute, option.value)
         });
     }
+    htmlElement.className = className
     return htmlElement
 }
 
@@ -45,19 +46,25 @@ async function displayWeatherData(data) {
     if (data && data['forecast'] && data['forecast']['forecastday']) {
         const forcastData = data['forecast']['forecastday']
         for (let index = 0; index < forcastData.length; index++) {
-            const day = createElementHelper('div', false, [{attribute: 'class', value: 'day'}])
+            const day = createElementHelper('div', false, 'day')
             const date = new Date(forcastData[index].date);
             const dayOfWeekNumber = date.getDay();
 
             day.append(createElementHelper('h1', daysOfWeek[dayOfWeekNumber]))
-            day.append(createElementHelper('div', forcastData[index].date))
-            day.append(createElementHelper('h1', forcastData[index].day.avgtemp_c + "\u00B0C"))
-            day.append(createElementHelper('div', 'Humidity: ' + forcastData[index].day.avghumidity))
+            day.append(createElementHelper('div',forcastData[index].date, 'weather-date',))
 
-            const conditionContainer = createElementHelper('div', false)
-            conditionContainer.append(createElementHelper('img', false, [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))
-            conditionContainer.append(createElementHelper('div', forcastData[index].day.condition.text, [{attribute: 'class', value: 'condition-container'}]))
+            const conditionContainer = createElementHelper('div', false, 'condition-container')
+            const conditionContainerText = createElementHelper('div', false, 'condition-container-text')
+
+            conditionContainerText.append(createElementHelper('div',forcastData[index].day.avgtemp_c + "\u00B0C", 'weather-temp'))
+            conditionContainerText.append(createElementHelper('div', forcastData[index].day.condition.text))
+
+            conditionContainer.append(conditionContainerText)
+            conditionContainer.append(createElementHelper('img', false, '', [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))
+            
             day.append(conditionContainer)
+
+            day.append(createElementHelper('div','Humidity: ' + forcastData[index].day.avghumidity, 'weather-humidity'))
 
             weatherContainer.append(day)
         }

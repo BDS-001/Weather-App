@@ -23,7 +23,7 @@ body {
     color: #DDDDDD;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 15px;
-
+    position: relative;
     min-width: 300px;
 }
 .form-container {
@@ -54,5 +54,21 @@ input[type="submit"]:hover {
 .error-message {
     color: red;
     margin: 10px 0;
-    display: none; /* Initially hidden */
+    display: none; 
+}
+
+.weather-date {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+}
+
+.weather-temp {
+    font-size: 2em;
+}
+
+.condition-container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
 }
