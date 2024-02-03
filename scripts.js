@@ -63,8 +63,12 @@ async function displayWeatherData(data) {
             conditionContainer.append(createElementHelper('img', false, '', [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))
             
             day.append(conditionContainer)
-
             day.append(createElementHelper('div','Humidity: ' + forcastData[index].day.avghumidity, 'weather-humidity'))
+            forcastData[index].hour.forEach(function(hourlyWeatherData) {
+                console.log(hourlyWeatherData.time)
+                console.log(hourlyWeatherData.temp_c)
+                console.log(hourlyWeatherData.condition.text)
+            })
 
             weatherContainer.append(day)
         }
