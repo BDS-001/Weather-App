@@ -2,28 +2,30 @@ body {
     font-family: Arial, sans-serif;
     background-color: #2b2b2b; 
     color: #FFFFFF;
+    padding: 0;
     margin: 0;
-    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 .title-bar {
     background-color: #1F1F1F;
     color: #FFFFFF;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     font-size: 2em;
 }
 .location {
     display: flex;
     justify-content: center;
-    font-size: 2em;
+    font-size: 100px;
     font-weight: bold;
 }
 .weather-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-around;
+    flex: 1;
     padding: 20px;
+    display: grid;
+    justify-items: center;
 }
 .day {
     border: 1px solid #333333;
@@ -35,6 +37,8 @@ body {
     border-radius: 15px;
     position: relative;
     min-width: 300px;
+    width: 70%;
+    margin-bottom: 20px;
 }
 .form-container {
     text-align: center;
@@ -72,7 +76,9 @@ input[type="submit"]:hover {
     top: 5px;
     right: 8px;
 }
-
+.day-of-the-week {
+    font-size: 50px;
+}
 .weather-temp {
     font-size: 2em;
 }
@@ -80,7 +86,7 @@ input[type="submit"]:hover {
 .condition-container {
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: center;
 }
 
 .daily-weather-container {
@@ -93,7 +99,6 @@ input[type="submit"]:hover {
 .hourly-weather-container {
     display: flex;
     overflow: scroll;
-    max-width: 600px;
     gap: 20px;
 }
 
@@ -148,4 +153,16 @@ input[type="submit"]:hover {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+  }
+  .condition-container-icon {
+    width: 100px;
+    height: auto;
+
+  }
+  .citation {
+    background-color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

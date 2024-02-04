@@ -64,7 +64,7 @@ async function displayWeatherData(data) {
             const date = new Date(forcastData[index].date);
             const dayOfWeekNumber = date.getDay();
 
-            day.append(createElementHelper('h1', daysOfWeek[dayOfWeekNumber]))
+            day.append(createElementHelper('h1', daysOfWeek[dayOfWeekNumber], 'day-of-the-week'))
             day.append(createElementHelper('div',forcastData[index].date, 'weather-date',))
             const dailyWeatherContainer = createElementHelper('div', false, 'daily-weather-container')
 
@@ -73,7 +73,7 @@ async function displayWeatherData(data) {
             conditionContainerText.append(createElementHelper('div',forcastData[index].day.avgtemp_c + "\u00B0C", 'weather-temp'))
             conditionContainerText.append(createElementHelper('div', forcastData[index].day.condition.text))
             conditionContainer.append(conditionContainerText)
-            conditionContainer.append(createElementHelper('img', false, '', [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))  
+            conditionContainer.append(createElementHelper('img', false, 'condition-container-icon', [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))  
             dailyWeatherContainer.append(conditionContainer)
 
             const dailyWeatherStats = createElementHelper('div', false, 'daily-weather-stats')
@@ -91,7 +91,7 @@ async function displayWeatherData(data) {
             forcastData[index].hour.forEach(function(hourlyWeatherData) {
                 const weatherHour = createElementHelper('div', false, 'hour-container')
                 weatherHour.append(createElementHelper('div', dateTimeConverter(hourlyWeatherData.time), 'hour-time'))
-                weatherHour.append(createElementHelper('div', hourlyWeatherData.temp_c, 'hour-temp'))
+                weatherHour.append(createElementHelper('div', hourlyWeatherData.temp_c + "\u00B0C", 'hour-temp'))
                 weatherHour.append(createElementHelper('img', false, 'hour-icon', [{attribute: 'src', value: `https:${hourlyWeatherData.condition.icon}`}]))  
                 weatherHour.append(createElementHelper('div', hourlyWeatherData.condition.text, 'hour-condition'))
                 hourlyWeatherConatainer.append(weatherHour)
