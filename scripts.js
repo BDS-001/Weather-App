@@ -54,7 +54,7 @@ async function displayWeatherData(data) {
     const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
     const weatherContainer = document.querySelector('.weather-container')
     const location = document.querySelector('.location')
-    location.innerHTML = data.location.region ? `${data.location.name}, ${data.location.region}` : data.location.name
+    location.innerHTML = (data.location.region && data.location.region != data.location.name) ? `${data.location.name}, ${data.location.region}` : data.location.name
     weatherContainer.innerHTML = ''
 
     if (data && data['forecast'] && data['forecast']['forecastday']) {
