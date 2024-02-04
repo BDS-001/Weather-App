@@ -10,8 +10,15 @@ body {
     padding: 10px;
     text-align: center;
 }
+.location {
+    display: flex;
+    justify-content: center;
+    font-size: 3em;
+}
 .weather-container {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: space-around;
     padding: 20px;
 }
@@ -71,4 +78,23 @@ input[type="submit"]:hover {
     display: flex;
     justify-content: center;
     align-items: end;
+}
+
+.daily-weather-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.hourly-weather-container {
+    display: flex;
+    overflow: scroll;
+    max-width: 600px;
+    gap: 20px;
+}
+
+.hour-container {
+    min-width: 100px;
+    margin-bottom: 20px;
 }

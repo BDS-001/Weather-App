@@ -37,10 +37,24 @@ function createElementHelper(element, innerContent, className='', options = fals
     return htmlElement
 }
 
+function dateTimeConverter(dateTime) {
+    const date = new Date(dateTime);
+
+    const timeIn12HourFormat = date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+    });
+
+    return timeIn12HourFormat
+}
+
 async function displayWeatherData(data) {
     console.log(data)
     const daysOfWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
     const weatherContainer = document.querySelector('.weather-container')
+    const location = document.querySelector('.location')
+    location.innerHTML = data.location.region ? `${data.location.name}, ${data.location.region}` : data.location.name
     weatherContainer.innerHTML = ''
 
     if (data && data['forecast'] && data['forecast']['forecastday']) {
@@ -52,6 +66,7 @@ async function displayWeatherData(data) {
 
             day.append(createElementHelper('h1', daysOfWeek[dayOfWeekNumber]))
             day.append(createElementHelper('div',forcastData[index].date, 'weather-date',))
+            const dailyWeatherContainer = createElementHelper('div', false, 'daily-weather-container')
 
             const conditionContainer = createElementHelper('div', false, 'condition-container')
             const conditionContainerText = createElementHelper('div', false, 'condition-container-text')
@@ -59,7 +74,7 @@ async function displayWeatherData(data) {
             conditionContainerText.append(createElementHelper('div', forcastData[index].day.condition.text))
             conditionContainer.append(conditionContainerText)
             conditionContainer.append(createElementHelper('img', false, '', [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))  
-            day.append(conditionContainer)
+            dailyWeatherContainer.append(conditionContainer)
 
             const dailyWeatherStats = createElementHelper('div', false, 'daily-weather-stats')
             dailyWeatherStats.append(createElementHelper('div','Humidity: ' + forcastData[index].day.avghumidity, 'weather-humidity'))
@@ -68,17 +83,21 @@ async function displayWeatherData(data) {
             const snowChance = forcastData[index].day.daily_chance_of_snow
             if (rainChance > 0) dailyWeatherStats.append(createElementHelper('div','Chance to Rain: ' + rainChance + '%', 'weather-chance-to-rain'))
             if (snowChance > 0) dailyWeatherStats.append(createElementHelper('div','Chance to Snow: ' + snowChance + '%', 'weather-chance-to-snow'))
-            day.append(dailyWeatherStats)
+            dailyWeatherContainer.append(dailyWeatherStats)
+
+            day.append(dailyWeatherContainer)
+            const hourlyWeatherConatainer = createElementHelper('div', false, 'hourly-weather-container')
 
             forcastData[index].hour.forEach(function(hourlyWeatherData) {
                 const weatherHour = createElementHelper('div', false, 'hour-container')
-                weatherHour.append(createElementHelper('div', hourlyWeatherData.time, 'hour-time'))
+                weatherHour.append(createElementHelper('div', dateTimeConverter(hourlyWeatherData.time), 'hour-time'))
                 weatherHour.append(createElementHelper('div', hourlyWeatherData.temp_c, 'hour-temp'))
                 weatherHour.append(createElementHelper('img', false, 'hour-icon', [{attribute: 'src', value: `https:${hourlyWeatherData.condition.icon}`}]))  
                 weatherHour.append(createElementHelper('div', hourlyWeatherData.condition.text, 'hour-condition'))
-                day.append(weatherHour)
+                hourlyWeatherConatainer.append(weatherHour)
             })
 
+            day.append(hourlyWeatherConatainer)
             weatherContainer.append(day)
         }
     }
