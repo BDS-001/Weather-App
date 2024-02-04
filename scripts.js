@@ -55,19 +55,28 @@ async function displayWeatherData(data) {
 
             const conditionContainer = createElementHelper('div', false, 'condition-container')
             const conditionContainerText = createElementHelper('div', false, 'condition-container-text')
-
             conditionContainerText.append(createElementHelper('div',forcastData[index].day.avgtemp_c + "\u00B0C", 'weather-temp'))
             conditionContainerText.append(createElementHelper('div', forcastData[index].day.condition.text))
-
             conditionContainer.append(conditionContainerText)
-            conditionContainer.append(createElementHelper('img', false, '', [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))
-            
+            conditionContainer.append(createElementHelper('img', false, '', [{attribute: 'src', value: `https:${forcastData[index].day.condition.icon}`}]))  
             day.append(conditionContainer)
-            day.append(createElementHelper('div','Humidity: ' + forcastData[index].day.avghumidity, 'weather-humidity'))
+
+            const dailyWeatherStats = createElementHelper('div', false, 'daily-weather-stats')
+            dailyWeatherStats.append(createElementHelper('div','Humidity: ' + forcastData[index].day.avghumidity, 'weather-humidity'))
+            dailyWeatherStats.append(createElementHelper('div','Wind: ' + forcastData[index].day.maxwind_kph, 'weather-wind-speed'))
+            const rainChance = forcastData[index].day.daily_chance_of_rain
+            const snowChance = forcastData[index].day.daily_chance_of_snow
+            if (rainChance > 0) dailyWeatherStats.append(createElementHelper('div','Chance to Rain: ' + rainChance + '%', 'weather-chance-to-rain'))
+            if (snowChance > 0) dailyWeatherStats.append(createElementHelper('div','Chance to Snow: ' + snowChance + '%', 'weather-chance-to-snow'))
+            day.append(dailyWeatherStats)
+
             forcastData[index].hour.forEach(function(hourlyWeatherData) {
-                console.log(hourlyWeatherData.time)
-                console.log(hourlyWeatherData.temp_c)
-                console.log(hourlyWeatherData.condition.text)
+                const weatherHour = createElementHelper('div', false, 'hour-container')
+                weatherHour.append(createElementHelper('div', hourlyWeatherData.time, 'hour-time'))
+                weatherHour.append(createElementHelper('div', hourlyWeatherData.temp_c, 'hour-temp'))
+                weatherHour.append(createElementHelper('img', false, 'hour-icon', [{attribute: 'src', value: `https:${hourlyWeatherData.condition.icon}`}]))  
+                weatherHour.append(createElementHelper('div', hourlyWeatherData.condition.text, 'hour-condition'))
+                day.append(weatherHour)
             })
 
             weatherContainer.append(day)
