@@ -98,6 +98,8 @@ async function displayWeatherData(data) {
             })
 
             day.append(hourlyWeatherConatainer)
+            day.style.backgroundImage = "url('resources/backgrounds/thunder.png')";
+
             weatherContainer.append(day)
         }
     }
