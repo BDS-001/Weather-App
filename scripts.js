@@ -60,7 +60,7 @@ const backgroundImageMap = {
 function mapBackgroundImage(code) {
     for (const key of Object.keys(backgroundImageMap)) {
         if (backgroundImageMap[key].includes(code)) {
-            return `url('${key}')`; // This will exit the function immediately
+            return `url('${key}')`; 
         }
     }
     return '';
@@ -116,8 +116,6 @@ async function displayWeatherData(data) {
 
             day.append(hourlyWeatherConatainer)
             day.style.backgroundImage = mapBackgroundImage(forcastData[index].day.condition.code);
-            console.log(mapBackgroundImage(forcastData[index].day.condition.code))
-            console.log(forcastData[index].day.condition.code)
 
             weatherContainer.append(day)
         }
