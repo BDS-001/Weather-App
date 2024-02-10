@@ -39,6 +39,7 @@ body {
     min-width: 300px;
     width: 70%;
     margin-bottom: 20px;
+    max-height: 500px;
 }
 .form-container {
     text-align: center;
